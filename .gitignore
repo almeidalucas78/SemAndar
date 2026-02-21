@@ -1,0 +1,33 @@
+# Node modules
+node_modules/
+
+# Arquivos de ambiente / segredos
+.env
+.env.*.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# Build / saída
+dist/
+build/
+coverage/
+.nyc_output/
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Dependências lock (opcional: normalmente recomenda-se commitar package-lock.json)
+# package-lock.json
+
+# Outros caches / temporários
+.cache/
+.parcel-cache/
+pids/
+*.pid
