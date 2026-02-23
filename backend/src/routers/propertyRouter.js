@@ -3,6 +3,6 @@ import { getAllProperties } from "../controllers/propertyController.js"; //impor
 
 const PropertyRouter = express.Router(); //cria uma instância do router do express.
 
-PropertyRouter.get("/", getAllProperties); //define a rota GET / para chamar a função getAllProperties do controller.
+PropertyRouter.get("/ ", getAllProperties); //define a rota GET / para chamar a função getAllProperties do controller.
 
 export default PropertyRouter; 
