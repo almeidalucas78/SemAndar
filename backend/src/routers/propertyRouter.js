@@ -5,4 +5,4 @@ const PropertyRouter = express.Router(); //cria uma instância do router do expr
 
 PropertyRouter.get("/ ", getAllProperties); //define a rota GET / para chamar a função getAllProperties do controller.
 
-export default PropertyRouter; 
+export default PropertyRouter;  
