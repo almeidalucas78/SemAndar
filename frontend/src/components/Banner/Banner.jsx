@@ -1,5 +1,6 @@
 import "./Banner.css";
 import ButtonSingUp from "../ButtonSingUp/ButtonSingUp";
+import FloatingForm from "../FloatingForm/FloatingForm";
 
 
 const BANNER_CONTENT = {
@@ -17,9 +18,9 @@ const Banner = () => {
           <p className="text-lg md:text-xl text-slate-500 mb-10 max-w-lg leading-relaxed">{BANNER_CONTENT.description}</p>
           <ButtonSingUp>Cadastre-se</ButtonSingUp>
         </div>
+         <FloatingForm />
       </div>
     </section>
-
   );
 }
 export default Banner;
