@@ -4,7 +4,6 @@
 import express from "express";
 
 import { getAllUsers } from "../controllers/userController.js";
-import { getAllProperties } from "../controllers/propertyController.js";
 
 const UserRouter = express.Router();
 

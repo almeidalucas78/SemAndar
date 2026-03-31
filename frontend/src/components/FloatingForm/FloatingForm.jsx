@@ -1,15 +1,46 @@
 import './FloatingForm.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const FloatingForm = () => {
 
+
+  const testeApi = async () => {
+    try {
+      const response = await axios.get('http://localhost:3001/properties');
+      console.log('Resposta da API:', response.data);
+    } catch (error) {
+      console.error('Erro ao chamar a API:', error);
+    }
+  }
+  useEffect(() => {
+    testeApi();
+  }, []);
+
+
   // O estado 'filters' armazena os valores dos inputs do formulário
-  const { filters, setFilters } = useState({
+  const [filters, setFilters] = useState({
     location: '',
     propertyType: '',
     maxPrice: ''
   });
+
+  //função para atualizar o estado 'filters' quando o usuário digitar algo nos inputs
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFilters({ ...filters, [name]: value });
+  }
+
+
+  const handleSearch = async (e) => {
+    e.preventDefault(); 
+    try{
+      const response = await axios.get('/api/properties', { params: filters });
+      console.log('Propriedades encontradas:', response.data);
+    } catch (error) {
+      console.error('Erro ao buscar propriedades:', error);
+    }
+  }
 
   const SearchInput = ({ placeholder }) => (
     <input type="text"
