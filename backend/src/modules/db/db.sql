@@ -68,12 +68,15 @@ INSERT INTO users (name, email, password, role) VALUES
 ('Admin', 'admin@semandar.com', 'admin123', 'ADMIN'),
 ('Lucas Corretor', 'lucas@prop.com', 'senha123', 'ADVERTISER');
 
-INSERT INTO properties (title, description, type, transaction_type, price, bedrooms, area_m2, city, state, owner_id) VALUES 
--- ALUGUEL
-('Studio Moderno Augusta', 'Mobiliado.', 'Studio', 'Alugar', 2500.00, 1, 35, 'São Paulo', 'SP', 2),
-('Apto Família Suzano', 'Perto do shopping.', 'Apartamento', 'Alugar', 1800.00, 2, 65, 'Suzano', 'SP', 2),
-
--- VENDA
-('Mansão Jardins', 'Luxo total.', 'Casa', 'Comprar', 2500000.00, 4, 300, 'São Paulo', 'SP', 2),
-('Apto Vila Mariana', 'Oportunidade.', 'Apartamento', 'Comprar', 850000.00, 3, 110, 'São Paulo', 'SP', 2),
-('Kitnet UFABC', 'Ideal investidor.', 'Kitnet', 'Comprar', 190000.00, 1, 28, 'Santo André', 'SP', 2);
+-- Inserir Imóveis (Properties) com todos os campos obrigatórios preenchidos
+INSERT INTO properties (
+    title, description, type, status, transaction_type, price, 
+    bedrooms, bathrooms, parking_spots, area_m2, 
+    address, neighborhood, city, state, 
+    latitude, longitude, owner_id
+) VALUES 
+('Studio Moderno Augusta', 'Mobiliado e pronto para morar.', 'Studio', 'Disponível', 'Alugar', 2500.00, 1, 1, 0, 35, 'Rua Augusta, 1200', 'Consolação', 'São Paulo', 'SP', -23.5533, -46.6529, 2),
+('Apto Familia Suzano', 'Perto do shopping e estacao.', 'Apartamento', 'Disponível', 'Alugar', 1800.00, 2, 1, 1, 65, 'Rua Benjamin Constant, 10', 'Centro', 'Suzano', 'SP', -23.5431, -46.3102, 2),
+('Mansao Jardins', 'Luxo total com piscina.', 'Casa', 'Disponível', 'Comprar', 2500000.00, 4, 5, 4, 300, 'Rua Oscar Freire, 100', 'Jardins', 'São Paulo', 'SP', -23.5641, -46.6672, 2),
+('Apto Vila Mariana', 'Oportunidade unica.', 'Apartamento', 'Disponível', 'Comprar', 850000.00, 3, 2, 2, 110, 'Rua Domingos de Morais, 500', 'Vila Mariana', 'São Paulo', 'SP', -23.5891, -46.6343, 2),
+('Kitnet UFABC', 'Ideal para investidor.', 'Kitnet', 'Disponível', 'Comprar', 190000.00, 1, 1, 0, 28, 'Avenida dos Estados, 1000', 'Bangu', 'Santo Andre', 'SP', -23.6432, -46.5284, 2);
