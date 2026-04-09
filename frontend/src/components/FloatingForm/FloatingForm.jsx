@@ -15,21 +15,24 @@ const SearchInput = ({ name, placeholder, value, onChange }) => (
   />
 );
 
+//Sub-componente para Select
+const SearchSelect = ({ name, value, onChange, options }) => (
+  <select
+    name={name}
+    value={value}
+    onChange={onChange}
+    className="w-full p-2 rounded border-none font-bold outline-none transition-all bg-white text-black appearance-none cursor-pointer"
+  >
+    <option value="">Tipo de Imóvel</option>
+    {options.map((opt) => (
+      <option key={opt} value={opt}>
+        {opt}
+      </option>
+    ))}
+  </select>
+);
+
 const FloatingForm = () => {
-  // const testeApi = async () => {
-  //   try {
-  //     const response = await axios.get('http://localhost:3001/properties');
-  //     console.log('Resposta da API:', response.data);
-  //   } catch (error) {
-  //     console.error('Erro ao chamar a API:', error);
-  //   }
-  // }
-  // useEffect(() => {
-  //   testeApi();
-  // }, []);
-
-
-
   const navigate = useNavigate();
 
   // Estado seguindo os nomes das colunas no banco
@@ -48,20 +51,19 @@ const FloatingForm = () => {
   // Função que redireciona para a página de resultados com os Params
   const handleSearch = async (e) => {
     e.preventDefault();
-
     const params = new URLSearchParams();
 
     // Constrói a query string apenas com o que estiver preenchido
     if (filters.city) params.append('city', filters.city);
     if (filters.type) params.append('type', filters.type);
-    if (filters.maxPrice) param.append('maxPrice', filters.maxPrice);
+    if (filters.maxPrice) params.append('maxPrice', filters.maxPrice);
 
     //redireciona para  /search?city=...&type=...
     navigate(`/search?${params.toString()}`);
   };
 
-
-
+  // Lista de tipos baseada no  banco de dados
+  const propertyTypes = ["Apartamento", "Casa", "Casa de Condomínio"];
 
   return (
     <section className="FloatingForm mt-16 mx-[15%] rounded-lg py-5 ml-16">
@@ -78,18 +80,18 @@ const FloatingForm = () => {
           </div>
 
           <div className="flex-1 w-full">
-            <SearchInput
+            <SearchSelect
               name="type"
-              placeholder="Tipo (Ex: Apartamento)"
               value={filters.type}
               onChange={handleChange}
+              options={propertyTypes}
             />
           </div>
 
           <div className="flex-1 w-full">
             <SearchInput
               name="maxPrice"
-              placeholder="Valor máximo"
+              placeholder="Preço Máximo"
               value={filters.maxPrice}
               onChange={handleChange}
             />
@@ -100,7 +102,7 @@ const FloatingForm = () => {
               type="submit"
               className="w-full lg:px-8 p-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded transition-colors"
             >
-              Pesquisar
+              Buscar
             </button>
           </div>
         </form>

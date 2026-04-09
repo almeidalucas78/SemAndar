@@ -3,23 +3,29 @@ import { useSearchParams } from 'react-router-dom';
 import axios from 'axios';
 
 const SearchResults = () => {
+
+  // 1. Lê a URL do navegador. Se estiver em /search?city=São Paulo, ele "pega" o city=São Paulo.
   const [searchParams] = useSearchParams();
+  // 2. Cria a lista onde os imóveis vindos do banco de dados serão guardados. Começa vazia [].
   const [properties, setProperties] = useState([]);
+  // 3. Um "aviso" visual. Começa como 'true' porque assim que a página abre, ela começa a buscar dados.
   const [loading, setLoading] = useState(true);
-  
+
   useEffect(() => {
     const fetchProperties = async () => {
       setLoading(true);
       try {
         //pega os valores da url
-        const city = useSearchParams.get('city');
-        const type = useSearchParams.get('type');
-        const maxPrice = useSearchParams.get('maxPrice');
+        const city = searchParams.get('city');
+        const type = searchParams.get('type');
+        const maxPrice = searchParams.get('maxPrice');
 
-        //chama a rota de busca com os parametors
+        // A PONTE: O Axios faz a chamada para o seu Backend Node.js.
+        // O objeto 'params' envia os filtros de forma limpa: ?city=...&type=...
         const response = await axios.get('http://localhost:3001/properties/search', {
           params: { city, type, maxPrice }
         });
+        // Guardamos os imóveis que o Node encontrou no estado 'properties'.
         setProperties(response.data);
       } catch (error) {
         console.log("Erro ao buscar imóveis:", error);
@@ -52,8 +58,8 @@ const SearchResults = () => {
           )}
         </div>
       )}
-      </div>
-      );
-  };
-  
-  export default SearchResults;
+    </div>
+  );
+};
+
+export default SearchResults;
