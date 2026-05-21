@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './FloatingForm.css';
@@ -42,12 +42,40 @@ const FloatingForm = () => {
     maxPrice: ''
   });
 
+  //estados para as sugestões de cidade
+  const [suggestions, setSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+
+  const debounceTimeout = useRef(null);
+
   //função para atualizar o estado 'filters' quando o usuário digitar algo nos inputs
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFilters(prev => ({ ...prev, [name]: value }));
-  }
 
+    //lógica para busca de cidades
+    if (name === 'city') {
+      if (debounceTimeout.current) clearTimeout(debounceTimeout.current);
+
+      if (value.length >= 2) {
+        debounceTimeout.current = setTimeout(async () => {
+          try {
+            // O backend espera 'name' como parâmetro de busca conforme seu cityController.js
+            const response = await axios.get('http://localhost:3001/cities/suggestions', {
+              params: { term: value }
+            });
+            setSuggestions(response.data);
+            setShowSuggestions(true);
+          } catch (error) {
+            console.error('Erro ao buscar sugestões de cidade:', error);
+          }
+        }, 300);
+      } else {
+        setSuggestions([]);
+        setShowSuggestions(false);
+      }
+    };
+  }
   // Função que redireciona para a página de resultados com os Params
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -63,20 +91,33 @@ const FloatingForm = () => {
   };
 
   // Lista de tipos baseada no  banco de dados
-  const propertyTypes = ["Apartamento", "Casa", "Casa de Condomínio"];
+  const propertyTypes = ["Apartamento", "Casa", "Studio", "Kitnet"];
 
   return (
     <section className="FloatingForm mt-16 mx-[15%] rounded-lg py-5 ml-16">
       <div className="container mx-auto px-4">
         <form onSubmit={handleSearch} className="flex flex-col lg:flex-row gap-4 items-center p-4 rounded-lg bg-gray-100 shadow-md">
 
-          <div className="flex-1 w-full">
+          <div className="flex-1 w-full relative" >
             <SearchInput
               name="city"
               placeholder="Localização (Ex: São Paulo)"
               value={filters.city}
               onChange={handleChange}
             />
+            {
+              showSuggestions && suggestions.length > 0 && (
+                <ul className="absolute z-50 w-full bg-white border border-gray-300 rounded shadow-lg mt-1 max-h-60 overflow-y-auto">
+                  {suggestions.map((city, index) => (
+                    <li key={index} className="p-2 hover:bg-gray-100 cursor-pointer text-gray-700" onClick={() => {
+                      setFilters(prev => ({ ...prev, city }));
+                      setShowSuggestions(false);
+                    }}>
+                      {city}
+                    </li>
+                  ))}
+                </ul>
+              )}
           </div>
 
           <div className="flex-1 w-full">

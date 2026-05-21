@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import axios from 'axios';
+import Header from '../../components/Header/Header';
 
 const SearchResults = () => {
 
@@ -39,26 +40,42 @@ const SearchResults = () => {
 
 
   return (
-    <div className='container mx-auto p-8'>
-      <h1>Resultados da busca</h1>
-      {loading ? (
-        <p>Carregando...</p>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {properties.length > 0 ? (
-            properties.map((property) => (
-              <div key={property.id} className="border p-4 rouded shadow">
-                <h2 className="font-bold">{property.title}</h2>
-                <p>{property.city}-{property.type}</p>
-                <p className="text-blue-600 font-bold">R$: {property.price}</p>
+    <>
+      <Header />
+      <div className='container mx-auto p-8'>
+
+        <div className="grid grid-cols-[40%_60%] w-full">
+          <div>
+            <h1>{properties.length} imóveis encontrados em {searchParams.get('city')}</h1>
+            {loading ? (
+              <p>Carregando...</p>
+            ) : (
+              <div className="grid ">
+                {properties.length > 0 ? (
+                  properties.map((property) => (
+                    <div key={property.id} className="border p-4 rounded shadow">
+                      <h2 className="font-bold">{property.title}</h2>
+                      <p className="text-sm text-gray-600">
+                        {property.city} - {property.type} 
+                        <span className="ml-2 px-2 py-1 bg-gray-200 rounded text-xs">{property.transaction_type}</span>
+                      </p>
+                      <p className="text-blue-600 font-bold">R$: {property.price}</p>
+                    </div>
+                  ))
+                ) : (
+                  <p>Nenhum imóvel encontrado</p>
+                )}
               </div>
-            ))
-          ) : (
-            <p>Nenhum imóvel encontrado</p>
-          )}
+            )}
+          </div>
+          <div>
+            Segunda
+          </div>
+
         </div>
-      )}
-    </div>
+
+      </div>
+    </>
   );
 };
 
