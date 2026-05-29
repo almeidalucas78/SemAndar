@@ -1,0 +1,32 @@
+:root {
+  --purple-primary: #7C3AED;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.purple-color-primary {
+  color: var(--purple-primary);
+}
+h1 strong, h1 span, h2 strong, h2 span {
+  color: var(--purple-primary);
+}
+button {
+  background-color: var(--purple-primary);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05), 0 4px 20px rgba(124, 58, 237, 0.377);
+}
+
+.button-clean {
+  background-color: transparent;
+  color: #18181b;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  box-shadow: none;
+}

@@ -1,0 +1,7 @@
+.header-logo svg {
+  stroke: var(--purple-primary);
+  padding:5px;
+  border: 1px solid #9c9c9c71;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(95, 95, 95, 0.1);
+}

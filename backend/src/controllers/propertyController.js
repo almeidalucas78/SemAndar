@@ -2,7 +2,6 @@ import { getAllPropertiesService, getPropertiesByFiltersService } from "../servi
 
 export const getAllProperties = async (req, res) => {
   try {
-    console.log("Rota de propriedades acessada!"); // Log de depuração
     const properties = await getAllPropertiesService();
     res.json(properties);
   } catch (error) {

@@ -4,7 +4,7 @@ import FloatingForm from "../FloatingForm/FloatingForm";
 
 
 const BANNER_CONTENT = {
-  title: "Bem-vindo ao SemAndar",
+  title: <>Bem-vindo ao <strong>SemAndar</strong></>,
   description: "Explore nossa seleção exclusiva de propriedades requintadas, meticulosamente projetadas para atender à sua visão única da casa dos sonhos.",
   buttonText: "Cadastre-se"
 }
@@ -24,4 +24,3 @@ const Banner = () => {
   );
 }
 export default Banner;
-

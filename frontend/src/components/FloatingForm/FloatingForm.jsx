@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../../services/api';
 import './FloatingForm.css';
 
 //Sub-componente  para aceitar props de valor e mudança
@@ -61,7 +61,7 @@ const FloatingForm = () => {
         debounceTimeout.current = setTimeout(async () => {
           try {
             // O backend espera 'name' como parâmetro de busca conforme seu cityController.js
-            const response = await axios.get('http://localhost:3001/cities/suggestions', {
+            const response = await api.get('/cities/suggestions', {
               params: { term: value }
             });
             setSuggestions(response.data);

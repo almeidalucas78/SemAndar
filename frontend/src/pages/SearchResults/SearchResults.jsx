@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import axios from 'axios';
+import api from '../../services/api';
 import Header from '../../components/Header/Header';
 
 const SearchResults = () => {
@@ -23,7 +23,7 @@ const SearchResults = () => {
 
         // A PONTE: O Axios faz a chamada para o seu Backend Node.js.
         // O objeto 'params' envia os filtros de forma limpa: ?city=...&type=...
-        const response = await axios.get('http://localhost:3001/properties/search', {
+        const response = await api.get('/properties/search', {
           params: { city, type, maxPrice }
         });
         // Guardamos os imóveis que o Node encontrou no estado 'properties'.
@@ -56,7 +56,7 @@ const SearchResults = () => {
                     <div key={property.id} className="border p-4 rounded shadow">
                       <h2 className="font-bold">{property.title}</h2>
                       <p className="text-sm text-gray-600">
-                        {property.city} - {property.type} 
+                        {property.city} - {property.type}
                         <span className="ml-2 px-2 py-1 bg-gray-200 rounded text-xs">{property.transaction_type}</span>
                       </p>
                       <p className="text-blue-600 font-bold">R$: {property.price}</p>
